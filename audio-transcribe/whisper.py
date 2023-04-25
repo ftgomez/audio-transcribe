@@ -26,7 +26,6 @@ class AudioTranscribe:
             chunk_ = audio[chunk_start:chunk_end]
             chunk_.export(f'chunks/audio_chunk_{i}.mp3', format='mp3')
 
-
     def get_transcribe(self, path):
         audio_file = open(path, 'rb')
         transcript = openai.Audio.transcribe('whisper-1', audio_file)
