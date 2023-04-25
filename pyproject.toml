@@ -9,6 +9,11 @@ packages = [{include = "audio_transcribe"}]
 [tool.poetry.dependencies]
 python = "^3.9"
 openai = "^0.27.4"
+python-dotenv = "^1.0.0"
+langchain = "^0.0.149"
+pydub = "^0.25.1"
+chromadb = "^0.3.21"
+tiktoken = "^0.3.3"
 
 
 [build-system]
