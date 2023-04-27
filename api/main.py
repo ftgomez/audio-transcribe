@@ -1,8 +1,10 @@
 from fastapi import FastAPI
-from data import GetItem, PostItem
+from .data import GetItem, PostItem
 
 app = FastAPI()
 
-@app.post("/chat/{path}")
+@app.get("/chat/{path}")
 def create_chat(path):
-    pass
+    return {
+        'text': 'Hola mundo'
+    }

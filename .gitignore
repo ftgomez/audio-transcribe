@@ -2,5 +2,6 @@
 .env
 notebook/*
 .DS_Store
-audio-transcribe/__pycache__/*
-audio-transcribe/.chroma/*
+audio_transcribe/__pycache__/*
+audio_transcribe/.chroma/*
+api/__pycache__/*
