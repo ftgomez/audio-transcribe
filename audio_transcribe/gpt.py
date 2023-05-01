@@ -41,5 +41,12 @@ class QuestionBot:
             response = self.chain.run(input_documents=docs, question=query)
             print(f'Answer: {response}')
 
+    def answer_question(self, query):
+        self.prepare_data()
+        docs = self.docsearch.get_relevant_documents(query)
+        response = self.chain.run(input_documents=docs, question=query)
+        return response
+
+
 
     

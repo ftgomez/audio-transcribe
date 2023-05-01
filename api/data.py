@@ -5,5 +5,4 @@ class PostItem(BaseModel):
     query: str
 
 class GetItem(BaseModel):
-    chat_id: str
     query: str
