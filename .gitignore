@@ -5,3 +5,4 @@ notebook/*
 audio_transcribe/__pycache__/*
 audio_transcribe/.chroma/*
 api/__pycache__/*
+data/*
