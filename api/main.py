@@ -45,6 +45,10 @@ def chat(chat_id, item: GetItem):
         'response': response
     }
 
+    chat_number = len(answers)
+    with open(f'{chat_id}/{chat_number}.json', 'w') as outfile:
+        json.dump(dicc, outfile)
+
     return dicc
 
 
