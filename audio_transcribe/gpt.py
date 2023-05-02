@@ -46,6 +46,9 @@ class QuestionBot:
         docs = self.docsearch.get_relevant_documents(query)
         response = self.chain.run(input_documents=docs, question=query)
         return response
+    
+    def auto_chat(self, list_query, list_answer):
+        pass
 
 
 

@@ -25,6 +25,28 @@ def create_chat(item: PostItem):
                 json.dump(dicc, outfile)
 
             return dicc
+        
+@app.get('chat/{chat_id}')
+def chat(chat_id, item: GetItem):
+    files = os.listdir(chat_id)
+    files = list(filter(lambda x: '.json' in x, files))
+    dicts = list(map(lambda x: open(x), files))
+    querys = list(map(lambda x: json.load(x)['query'], dicts))
+    querys.append(item.query)
+    answers = list(map(lambda x: json.load(x)['response'], dicts))
+    transcript = json.load(dicts[0]['transcript'])
+
+    bot = QuestionBot(transcript)
+    response = bot.auto_chat(querys, answers)
+    
+    dicc = {
+        'chat_id': chat_id,
+        'query': item.query,
+        'response': response
+    }
+
+    return dicc
+
 
 
 
