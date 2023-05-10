@@ -2,7 +2,7 @@ import os
 import json
 import random
 from fastapi import FastAPI
-from .data import GetItem, PostItem
+from .data import PostAskItem, PostCreateItem
 from fastapi.middleware.cors import CORSMiddleware
 from audio_transcribe import AudioTranscribe, QuestionBot
 
@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 @app.post('/create_chat')
-def create_chat(item: PostItem):
+def create_chat(item: PostCreateItem):
     transcript = AudioTranscribe(item.path).transcribe()
     response = QuestionBot(transcript).answer_question(item.query)
     while True:
@@ -35,10 +35,11 @@ def create_chat(item: PostItem):
 
             return dicc
         
-@app.get('/chat/{chat_id}')
-def chat(chat_id, item: GetItem):
+@app.post('/chat/{chat_id}')
+def chat(chat_id, item: PostAskItem):
     files = os.listdir(chat_id)
     files = list(filter(lambda x: '.json' in x, files))
+    files = sorted(files, key=get_number)
     files = list(map(lambda x: f'{chat_id}/{x}', files))
     dicts = list(map(lambda x: open(x), files))
     querys = list(map(lambda x: json.load(x)['query'], dicts))
@@ -63,6 +64,9 @@ def chat(chat_id, item: GetItem):
         json.dump(dicc, outfile)
 
     return dicc
+
+def get_number(filename):
+    return int(filename.split('.')[0])
 
 
 
