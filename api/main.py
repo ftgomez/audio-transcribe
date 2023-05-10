@@ -3,9 +3,18 @@ import json
 import random
 from fastapi import FastAPI
 from .data import GetItem, PostItem
+from fastapi.middleware.cors import CORSMiddleware
 from audio_transcribe import AudioTranscribe, QuestionBot
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],  
+    allow_credentials=True,
+    allow_methods=['*'],  
+    allow_headers=['*'], 
+)
 
 @app.post('/create_chat')
 def create_chat(item: PostItem):
