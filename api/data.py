@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 
-class PostItem(BaseModel):
+class PostCreateItem(BaseModel):
     path: str
     query: str
 
-class GetItem(BaseModel):
+class PostAskItem(BaseModel):
     query: str
