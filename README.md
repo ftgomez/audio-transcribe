@@ -16,7 +16,7 @@ En caso de querer instalar o remover paquetes, usar `poetry add` o  `poetry remo
 Ejecutar el archivo `main.py` de la siguiente manera:
 
 ```bash
-python main.py -path "/path/to/mp3"   
+python main.py -path "/path/to/mp3"
 ```
 
 De esta forma se puede interactuar con el Bot usando la consola para hacer preguntas.
