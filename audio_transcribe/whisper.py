@@ -1,21 +1,25 @@
+import math
 import os
 import re
-import math
 import shutil
-import openai
 from glob import glob
+
+import openai
 from dotenv import load_dotenv
 from pydub import AudioSegment
 
+
 class AudioTranscribe:
-    def __init__(self, audio_path):
+    def __init__(self, audio_path, model_name="whisper-1"):
+        assert audio_path, "Audio path is required"
         load_dotenv()
-        openai.api_key = os.environ['OPENAI_API_KEY']
+        openai.api_key = os.environ["OPENAI_API_KEY"]
         self.audio_path = audio_path
+        self.model_name = model_name
 
     def chunk(self):
-        audio = AudioSegment.from_file(self.audio_path, format='mp3')
-        os.mkdir('chunks')
+        audio = AudioSegment.from_file(self.audio_path, format="mp3")
+        os.mkdir("chunks")
         chunk_size = 20000000
         chunk_duration = math.floor(chunk_size / audio.frame_rate * 1000)
 
@@ -24,21 +28,21 @@ class AudioTranscribe:
             if chunk_end > len(audio):
                 chunk_end = len(audio)
             chunk_ = audio[chunk_start:chunk_end]
-            chunk_.export(f'chunks/audio_chunk_{i}.mp3', format='mp3')
+            chunk_.export(f"chunks/audio_chunk_{i}.mp3", format="mp3")
 
     def get_transcribe(self, path):
-        audio_file = open(path, 'rb')
-        transcript = openai.Audio.transcribe('whisper-1', audio_file)
-        return transcript['text']
+        audio_file = open(path, "rb")
+        transcript = openai.Audio.transcribe(self.model_name, audio_file)
+        return transcript["text"]
 
     def extract_number(self, name):
         return int(re.search(r"\d+", name).group())
-    
+
     def transcribe(self):
         self.chunk()
-        lista_audio = glob('chunks/*.mp3')
+        lista_audio = glob("chunks/*.mp3")
         lista_audio = sorted(lista_audio, key=self.extract_number)
         transcript = list(map(self.get_transcribe, lista_audio))
-        transcript = ' '.join(transcript)
-        shutil.rmtree('chunks', ignore_errors=True)
+        transcript = " ".join(transcript)
+        shutil.rmtree("chunks", ignore_errors=True)
         return transcript
