@@ -1,7 +1,7 @@
 # Audio transcribe
 Module that transcribes audio to text and processes it using the OpenAI API, allowing the user to interactively ask questions about the content of the transcription. To use it, you need to have an OpenAI API key and load it as an environment variable in a `.env` file. Follow the format of `.env.example` for this.
 
-## Instalación
+## Installation
 After setting the environment variable, install dependencies. To do this, create a virtual environment and use `poetry`:
 
 ```bash
@@ -12,7 +12,7 @@ poetry shell
 
 If you want to install or remove packages, use `poetry add` or `poetry remove` respectively.
 
-## Uso
+## Usage
 Run the `main.py` file as follows:
 
 ```bash
